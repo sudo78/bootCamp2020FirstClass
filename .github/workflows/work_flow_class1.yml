@@ -1,0 +1,22 @@
+name: deploy Application surge 
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install NodeJS
+      uses: actions/setup-node@v2-beta
+      with:
+        node-version: 12
+    - name: Run surge
+      run: npm install -g surge
+    - name: Run Surge
+      run:  surge ./ abhorrent-decision.surge.sh --token ${{secrets.SURGE_TOKEN}}
+      
